@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Psychology Website - React App{% endblock %}
+
+{% block body %}
+    <div id="react-root"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('react-app') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('react-app') }}
+{% endblock %}
