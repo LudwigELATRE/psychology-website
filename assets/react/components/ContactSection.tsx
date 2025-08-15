@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { 
   Phone, 
   Mail, 
@@ -11,14 +12,29 @@ import {
   Send,
   Car,
   Train,
-  Shield
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  Loader2
 } from "lucide-react";
+import { useContactForm } from "@/hooks/useContactForm";
 
 const ContactSection = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const {
+    formData,
+    errors,
+    status,
+    updateField,
+    submitForm,
+    resetForm,
+    isSubmitting,
+    isSuccess,
+    isError,
+  } = useContactForm();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logique d'envoi du formulaire
-    console.log("Formulaire soumis");
+    await submitForm();
   };
 
   return (
@@ -44,38 +60,100 @@ const ContactSection = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              {/* Messages de feedback */}
+              {isSuccess && (
+                <Alert className="mb-6 border-green-200 bg-green-50">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <div className="text-green-800">
+                    <h4 className="font-medium">Message envoyé avec succès !</h4>
+                    <p className="text-sm mt-1">Je vous recontacterai dans les plus brefs délais.</p>
+                  </div>
+                </Alert>
+              )}
+
+              {isError && errors.general && (
+                <Alert variant="destructive" className="mb-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <div>
+                    <h4 className="font-medium">Erreur</h4>
+                    <p className="text-sm mt-1">{errors.general}</p>
+                  </div>
+                </Alert>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Prénom *</label>
-                    <Input placeholder="Votre prénom" required />
+                    <Input 
+                      placeholder="Votre prénom" 
+                      value={formData.firstName}
+                      onChange={(e) => updateField('firstName', e.target.value)}
+                      className={errors.firstName ? 'border-red-500' : ''}
+                    />
+                    {errors.firstName && (
+                      <p className="text-sm text-red-500 mt-1">{errors.firstName}</p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Nom *</label>
-                    <Input placeholder="Votre nom" required />
+                    <Input 
+                      placeholder="Votre nom" 
+                      value={formData.lastName}
+                      onChange={(e) => updateField('lastName', e.target.value)}
+                      className={errors.lastName ? 'border-red-500' : ''}
+                    />
+                    {errors.lastName && (
+                      <p className="text-sm text-red-500 mt-1">{errors.lastName}</p>
+                    )}
                   </div>
                 </div>
                 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Email *</label>
-                  <Input type="email" placeholder="votre@email.com" required />
+                  <Input 
+                    type="email" 
+                    placeholder="votre@email.com" 
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
+                    className={errors.email ? 'border-red-500' : ''}
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-500 mt-1">{errors.email}</p>
+                  )}
                 </div>
                 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Téléphone</label>
-                  <Input type="tel" placeholder="01 23 45 67 89" />
+                  <Input 
+                    type="tel" 
+                    placeholder="01 23 45 67 89" 
+                    value={formData.phone}
+                    onChange={(e) => updateField('phone', e.target.value)}
+                    className={errors.phone ? 'border-red-500' : ''}
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
+                  )}
                 </div>
                 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Type de consultation</label>
-                  <select className="w-full p-3 border border-input rounded-md bg-background">
-                    <option>Thérapie individuelle</option>
-                    <option>Thérapie de couple</option>
-                    <option>Psychologie de l'enfant</option>
-                    <option>Accompagnement professionnel</option>
-                    <option>Évaluation psychologique</option>
-                    <option>Autre</option>
+                  <select 
+                    className={`w-full p-3 border border-input rounded-md bg-background ${errors.consultationType ? 'border-red-500' : ''}`}
+                    value={formData.consultationType}
+                    onChange={(e) => updateField('consultationType', e.target.value)}
+                  >
+                    <option value="Thérapie individuelle">Thérapie individuelle</option>
+                    <option value="Thérapie de couple">Thérapie de couple</option>
+                    <option value="Psychologie de l'enfant">Psychologie de l'enfant</option>
+                    <option value="Accompagnement professionnel">Accompagnement professionnel</option>
+                    <option value="Évaluation psychologique">Évaluation psychologique</option>
+                    <option value="Autre">Autre</option>
                   </select>
+                  {errors.consultationType && (
+                    <p className="text-sm text-red-500 mt-1">{errors.consultationType}</p>
+                  )}
                 </div>
                 
                 <div className="space-y-2">
@@ -83,19 +161,49 @@ const ContactSection = () => {
                   <Textarea 
                     placeholder="Décrivez brièvement le motif de votre consultation..." 
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => updateField('message', e.target.value)}
+                    className={errors.message ? 'border-red-500' : ''}
                   />
+                  {errors.message && (
+                    <p className="text-sm text-red-500 mt-1">{errors.message}</p>
+                  )}
                 </div>
                 
                 <div className="flex items-start space-x-2">
-                  <input type="checkbox" id="confidentiality" className="mt-1" required />
+                  <input 
+                    type="checkbox" 
+                    id="confidentiality" 
+                    className="mt-1" 
+                    checked={formData.confidentialityAccepted}
+                    onChange={(e) => updateField('confidentialityAccepted', e.target.checked)}
+                  />
                   <label htmlFor="confidentiality" className="text-sm text-muted-foreground">
                     Je comprends que toutes les informations partagées seront traitées de manière strictement confidentielle *
                   </label>
                 </div>
+                {errors.confidentialityAccepted && (
+                  <p className="text-sm text-red-500 mt-1">{errors.confidentialityAccepted}</p>
+                )}
                 
-                <Button type="submit" variant="hero" size="lg" className="w-full">
-                  Envoyer ma demande
-                  <Send className="w-5 h-5 ml-2" />
+                <Button 
+                  type="submit" 
+                  variant="hero" 
+                  size="lg" 
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    <>
+                      Envoyer ma demande
+                      <Send className="w-5 h-5 ml-2" />
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
