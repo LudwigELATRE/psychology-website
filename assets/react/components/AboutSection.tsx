@@ -43,7 +43,7 @@ const AboutSection = () => {
                 />
                 <div className="absolute -bottom-4 -left-4 bg-background rounded-2xl p-4 shadow-hover border border-border">
                   <div className="text-center">
-                    <p className="text-sm font-semibold text-primary">Adeli: 759365478</p>
+                    <p className="text-sm font-semibold text-primary">Maëva DIVAD: 759365478</p>
                     <p className="text-xs text-muted-foreground">Psychologue agréée</p>
                   </div>
                 </div>

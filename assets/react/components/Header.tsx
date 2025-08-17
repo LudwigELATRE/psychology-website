@@ -1,8 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, Menu } from "lucide-react";
+import { Phone, Menu, LogIn } from "lucide-react";
 import { useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { LoginModal } from "@/components/auth/LoginModal";
+import { UserMenu } from "@/components/auth/UserMenu";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -16,11 +23,17 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo/Nom */}
           <div className="flex items-center space-x-2">
-            <a href="#" className="w-10 h-10 bg-gradient-hero rounded-full flex items-center justify-center">
+            <a 
+              href="/app" 
+              className="w-10 h-10 bg-gradient-hero rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+            >
               <span className="text-primary-foreground font-bold text-xl">MD</span>
             </a>
             <div>
-              <a href="#" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+              <a 
+                href="/app" 
+                className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+              >
                 Maëva DIVAD
               </a>
               <p className="text-sm text-muted-foreground">Psychologue clinicienne</p>
@@ -67,19 +80,18 @@ const Header = () => {
             </button>
           </nav>
 
-          {/* Contact rapide */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Phone className="w-4 h-4" />
-              <span>01 23 45 67 89</span>
-            </div>
-            <Button 
-              variant="hero" 
-              size="sm"
-              onClick={() => scrollToSection('contact')}
-            >
-              Prendre RDV
-            </Button>
+          {/* Contact rapide et authentification */}
+          <div className="hidden md:flex items-center space-x-4">            
+            {!isAuthenticated ? (
+              <LoginModal>
+                <Button variant="default" size="sm">
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Connexion
+                </Button>
+              </LoginModal>
+            ) : (
+              <UserMenu />
+            )}
           </div>
 
           {/* Menu mobile */}
@@ -143,11 +155,24 @@ const Header = () => {
                 <Button 
                   variant="hero" 
                   size="sm" 
-                  className="w-full"
+                  className="w-full mb-3"
                   onClick={() => scrollToSection('contact')}
                 >
                   Prendre RDV
                 </Button>
+                
+                {!isAuthenticated ? (
+                  <LoginModal>
+                    <Button variant="default" size="sm" className="w-full">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Connexion
+                    </Button>
+                  </LoginModal>
+                ) : (
+                  <div className="flex justify-center">
+                    <UserMenu />
+                  </div>
+                )}
               </div>
             </div>
           </nav>

@@ -65,7 +65,8 @@ Encore
     
     // Configure path aliases
     .addAliases({
-        '@': require('path').resolve(__dirname, 'assets/react')
+        '@': require('path').resolve(__dirname, 'assets/react'),
+        '@symfony/stimulus-bridge/controllers.json': require('path').resolve(__dirname, 'assets/controllers.json')
     })
 
     // uncomment if you use TypeScript
