@@ -21,7 +21,7 @@ const AboutSection = () => {
   ];
 
   const stats = [
-    { icon: <Calendar className="w-6 h-6" />, value: "15+", label: "Années d'expérience" },
+    { icon: <Calendar className="w-6 h-6" />, value: "3+", label: "Années d'expérience" },
     { icon: <Users className="w-6 h-6" />, value: "1200+", label: "Patients accompagnés" },
     { icon: <Award className="w-6 h-6" />, value: "4", label: "Certifications" },
     { icon: <GraduationCap className="w-6 h-6" />, value: "Formation", label: "Continue" }

@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { User, LogOut, Calendar, Settings } from 'lucide-react';
+import { User, LogOut, Calendar, Shield ,Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export const UserMenu: React.FC = () => {
@@ -55,6 +55,14 @@ export const UserMenu: React.FC = () => {
             <span>Mes rendez-vous</span>
           </a>
         </DropdownMenuItem>
+        {user.roles.includes('ROLE_ADMIN') && (
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <a href="/admin" className="flex items-center">
+              <Shield className="mr-2 h-4 w-4" />
+              <span>Administration</span>
+            </a>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem className="cursor-pointer">
           <Settings className="mr-2 h-4 w-4" />
           <span>Paramètres</span>
