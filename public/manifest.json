@@ -1,0 +1,27 @@
+{
+  "name": "Cabinet de Psychologie - Maëva DIVAD",
+  "short_name": "Psychologie MD",
+  "description": "Cabinet de psychologie clinicienne à Paris. Consultations individuelles et accompagnement thérapeutique personnalisé.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B5FBF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "medical", "lifestyle"],
+  "lang": "fr-FR",
+  "scope": "/"
+}

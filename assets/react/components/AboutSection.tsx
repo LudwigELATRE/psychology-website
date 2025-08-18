@@ -21,7 +21,7 @@ const AboutSection = () => {
   ];
 
   const stats = [
-    { icon: <Calendar className="w-6 h-6" />, value: "15+", label: "Années d'expérience" },
+    { icon: <Calendar className="w-6 h-6" />, value: "3+", label: "Années d'expérience" },
     { icon: <Users className="w-6 h-6" />, value: "1200+", label: "Patients accompagnés" },
     { icon: <Award className="w-6 h-6" />, value: "4", label: "Certifications" },
     { icon: <GraduationCap className="w-6 h-6" />, value: "Formation", label: "Continue" }
@@ -43,7 +43,7 @@ const AboutSection = () => {
                 />
                 <div className="absolute -bottom-4 -left-4 bg-background rounded-2xl p-4 shadow-hover border border-border">
                   <div className="text-center">
-                    <p className="text-sm font-semibold text-primary">Adeli: 759365478</p>
+                    <p className="text-sm font-semibold text-primary">Maëva DIVAD: 759365478</p>
                     <p className="text-xs text-muted-foreground">Psychologue agréée</p>
                   </div>
                 </div>
