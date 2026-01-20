@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\ContactRepository;
+use App\State\ContactStateProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -15,9 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ApiResource(
     operations: [
-        new GetCollection(),
-        new Get(),
-        new Post()
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN')"),
+        new Post(processor: ContactStateProcessor::class)
     ],
     normalizationContext: ['groups' => ['contact:read']],
     denormalizationContext: ['groups' => ['contact:write']]
@@ -81,6 +82,11 @@ class Contact
     #[ORM\Column]
     #[Groups(['contact:read'])]
     private bool $processed = false;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contacts')]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['contact:read'])]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -197,6 +203,18 @@ class Contact
     public function setProcessed(bool $processed): static
     {
         $this->processed = $processed;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
