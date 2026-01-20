@@ -81,6 +81,14 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+
+    // Configure dev server
+    .configureDevServerOptions(options => {
+        options.allowedHosts = 'all';
+        options.headers = {
+            'Access-Control-Allow-Origin': '*',
+        };
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

@@ -1,11 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  Brain, 
-  Heart, 
-  Baby, 
-  Briefcase, 
+import { ServiceCard } from "@/components/ui/ServiceCard";
+import {
+  Users,
+  Brain,
+  Heart,
+  Baby,
+  Briefcase,
   UserCheck,
   Clock,
   MapPin
@@ -74,33 +74,14 @@ const ServicesSection = () => {
         {/* Grille des services */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
-            <Card key={index} className="bg-gradient-card shadow-gentle hover:shadow-soft transition-all duration-300 group">
-              <CardHeader className="space-y-4">
-                <div className="w-16 h-16 bg-gradient-hero rounded-2xl flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-                <div>
-                  <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
-                  <CardDescription className="text-muted-foreground">
-                    {service.description}
-                  </CardDescription>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center justify-between pt-4 border-t border-border">
-                  <span className="text-2xl font-bold text-primary">{service.price}</span>
-                  <span className="text-sm text-muted-foreground">par séance</span>
-                </div>
-              </CardContent>
-            </Card>
+            <ServiceCard
+              key={index}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+              features={service.features}
+              price={service.price}
+            />
           ))}
         </div>
 

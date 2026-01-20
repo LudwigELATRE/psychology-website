@@ -17,13 +17,13 @@ const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 Cabinet d'accompagnement
-                <span className="block bg-gradient-hero bg-clip-text text-transparent">
+                <span className="block bg-gradient-hero bg-clip-text text-transparent pb-8">
                   psychologique
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Je propose un accompagnement thérapeutique spécialisé pour vous aider 
-                à surmonter les difficultés psychologiques et retrouver un bien-être durable. 
+                Je propose un accompagnement thérapeutique spécialisé pour vous aider
+                à surmonter les difficultés psychologiques et retrouver un bien-être durable.
                 Mon approche clinique vise à traiter les troubles anxieux, dépressifs et traumatiques.
               </p>
             </div>
@@ -61,8 +61,8 @@ const HeroSection = () => {
 
             {/* Boutons d'action */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="hero" 
+              <Button
+                variant="hero"
                 size="lg"
                 onClick={() => scrollToSection('contact')}
                 className="group"
@@ -70,8 +70,8 @@ const HeroSection = () => {
                 Prendre rendez-vous
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button 
-                variant="gentle" 
+              <Button
+                variant="gentle"
                 size="lg"
                 onClick={() => scrollToSection('services')}
               >
@@ -85,7 +85,7 @@ const HeroSection = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-hero rounded-3xl transform rotate-3 opacity-20"></div>
               <div className="relative bg-gradient-card rounded-3xl p-8 shadow-soft">
-                <img 
+                <img
                   src={therapyOfficeImage}
                   alt="Cabinet de psychologie"
                   className="w-full h-96 object-cover rounded-2xl shadow-gentle"
