@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -8,6 +7,14 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> ide ###
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+###< ide ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
@@ -29,3 +36,7 @@ yarn-error.log
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+###> claude ###
+.claude/
+###< claude ###

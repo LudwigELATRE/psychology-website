@@ -23,15 +23,15 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo/Nom */}
           <div className="flex items-center space-x-2">
-            <a 
-              href="/app" 
+            <a
+              href="/app"
               className="w-10 h-10 bg-gradient-hero rounded-full flex items-center justify-center hover:scale-105 transition-transform"
             >
               <span className="text-primary-foreground font-bold text-xl">MD</span>
             </a>
             <div>
-              <a 
-                href="/app" 
+              <a
+                href="/app"
                 className="text-xl font-bold text-foreground hover:text-primary transition-colors"
               >
                 Maëva DIVAD
@@ -42,37 +42,37 @@ const Header = () => {
 
           {/* Navigation desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button 
+            <button
               onClick={() => scrollToSection('accueil')}
               className="text-foreground hover:text-primary transition-colors"
             >
               Accueil
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('services')}
               className="text-foreground hover:text-primary transition-colors"
             >
               Services
             </button>
-            <a 
+            <a
               href="#"
               className="text-foreground hover:text-primary transition-colors"
             >
               Formations
             </a>
-            <a 
+            <a
               href="#"
               className="text-foreground hover:text-primary transition-colors"
             >
               Documents
             </a>
-            <button 
+            <button
               onClick={() => scrollToSection('apropos')}
               className="text-foreground hover:text-primary transition-colors"
             >
               À propos
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('contact')}
               className="text-foreground hover:text-primary transition-colors"
             >
@@ -81,7 +81,7 @@ const Header = () => {
           </nav>
 
           {/* Contact rapide et authentification */}
-          <div className="hidden md:flex items-center space-x-4">            
+          <div className="hidden md:flex items-center space-x-4">
             {!isAuthenticated ? (
               <LoginModal>
                 <Button variant="default" size="sm">
@@ -109,39 +109,32 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden mt-4 py-4 border-t border-border bg-gradient-subtle rounded-lg">
             <div className="flex flex-col space-y-4">
-              <button 
+              <button
                 onClick={() => scrollToSection('accueil')}
                 className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors"
               >
                 Accueil
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('services')}
                 className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors"
               >
                 Services
               </button>
-              <a 
+              <a
                 href="#"
                 className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors block"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Formations
+                Formations test
               </a>
-              <a 
-                href="#"
-                className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors block"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Documents
-              </a>
-              <button 
+              <button
                 onClick={() => scrollToSection('apropos')}
                 className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors"
               >
                 À propos
               </button>
-              <button 
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="text-left px-4 py-2 text-foreground hover:text-primary transition-colors"
               >
@@ -152,15 +145,15 @@ const Header = () => {
                   <Phone className="w-4 h-4" />
                   <span>01 23 45 67 89</span>
                 </div>
-                <Button 
-                  variant="hero" 
-                  size="sm" 
+                <Button
+                  variant="hero"
+                  size="sm"
                   className="w-full mb-3"
                   onClick={() => scrollToSection('contact')}
                 >
                   Prendre RDV
                 </Button>
-                
+
                 {!isAuthenticated ? (
                   <LoginModal>
                     <Button variant="default" size="sm" className="w-full">
