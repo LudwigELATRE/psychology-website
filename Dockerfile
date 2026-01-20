@@ -43,8 +43,9 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Install Node dependencies and build assets
 RUN yarn install --frozen-lockfile && yarn build
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html \
+# Create var directory and set permissions
+RUN mkdir -p /var/www/html/var/cache /var/www/html/var/log \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/var
 
 # Configure Apache
