@@ -1,0 +1,16 @@
+.git
+.idea
+.vscode
+.claude
+node_modules
+vendor
+var/cache
+var/log
+public/build
+.env.local
+.env.*.local
+*.md
+!README.md
+docker-compose*.yml
+compose*.yaml
+!compose.prod.yaml
