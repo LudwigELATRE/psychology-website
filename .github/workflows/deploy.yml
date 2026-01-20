@@ -1,0 +1,35 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd /var/www/psychology-website
+
+            # Pull latest changes
+            git pull origin main
+
+            # Rebuild and restart containers
+            docker compose -f compose.prod.yaml down
+            docker compose -f compose.prod.yaml build --no-cache
+            docker compose -f compose.prod.yaml up -d
+
+            # Run migrations inside container
+            docker compose -f compose.prod.yaml exec -T app php bin/console doctrine:migrations:migrate --no-interaction
+
+            echo "Deployment completed successfully!"
