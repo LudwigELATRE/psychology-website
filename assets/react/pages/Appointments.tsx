@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ContactRequestsCard from '@/components/ContactRequestsCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -213,6 +214,9 @@ const Appointments: React.FC = () => {
       <Header />
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5 py-8 pt-24">
         <div className="container mx-auto px-4 max-w-6xl">
+        {/* Demandes de contact */}
+        <ContactRequestsCard />
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

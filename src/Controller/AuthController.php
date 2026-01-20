@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\User;
 use App\Service\UserRegistrationService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -90,7 +91,7 @@ class AuthController extends AbstractController
     public function me(): JsonResponse
     {
         $user = $this->getUser();
-        
+
         if (!$user instanceof User) {
             return new JsonResponse(['message' => 'Non authentifié'], Response::HTTP_UNAUTHORIZED);
         }
@@ -103,5 +104,41 @@ class AuthController extends AbstractController
             'roles' => $user->getRoles(),
             'googleId' => $user->getGoogleId(),
         ]);
+    }
+
+    #[Route('/api/me/contacts', name: 'api_me_contacts', methods: ['GET'])]
+    public function myContacts(EntityManagerInterface $entityManager): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            return new JsonResponse(['message' => 'Non authentifié'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        // Récupérer les contacts liés à l'utilisateur OU avec le même email
+        $contacts = $entityManager->getRepository(Contact::class)->createQueryBuilder('c')
+            ->where('c.user = :user')
+            ->orWhere('c.email = :email')
+            ->setParameter('user', $user)
+            ->setParameter('email', $user->getEmail())
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        $data = array_map(function (Contact $contact) {
+            return [
+                'id' => $contact->getId(),
+                'firstName' => $contact->getFirstName(),
+                'lastName' => $contact->getLastName(),
+                'email' => $contact->getEmail(),
+                'phone' => $contact->getPhone(),
+                'consultationType' => $contact->getConsultationType(),
+                'message' => $contact->getMessage(),
+                'createdAt' => $contact->getCreatedAt()->format('c'),
+                'processed' => $contact->isProcessed(),
+            ];
+        }, $contacts);
+
+        return new JsonResponse($data);
     }
 }
